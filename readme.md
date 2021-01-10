@@ -4,14 +4,13 @@ A demo application to illustrate how [Inertia.js](https://inertiajs.com/) works 
 
 > This is a port of the original [Ping CRM](https://github.com/inertiajs/pingcrm) written in Laravel and Vue.
 
-![](https://raw.githubusercontent.com/landish/pingcrm-react/master/screenshot.png)
 
 ## Installation
 
 Clone the repo locally:
 
 ```sh
-git clone https://github.com/landish/pingcrm-react.git
+git clone https://github.com/jubayed/laravel-react-saas.git
 cd pingcrm-react
 ```
 
@@ -73,17 +72,3 @@ You're ready to go! [Visit Ping CRM](http://127.0.0.1:8000/) in your browser, an
 
 - **Username:** johndoe@example.com
 - **Password:** secret
-
-## Running tests
-
-To run the Ping CRM tests, run:
-
-```
-phpunit
-```
-
-## Credits
-
-- Original work by Jonathan Reinink (@reinink) and contributors
-- Port to Ruby on Rails by Georg Ledermann (@ledermann)
-- Port to React by Lado Lomidze (@landish)

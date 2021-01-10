@@ -36,5 +36,18 @@ class DatabaseSeeder extends Seeder
             ->each(function (Contact  $contact) use ($organizations) {
                 $contact->update(['organization_id' => $organizations->random()->id]);
             });
+
+        //
+
+        User::factory(10)->create();
+        $this->call(LanguageTableSeeder::class);
+        $this->call(AdminMenusSeeder::class);
+
+        $this->call(RolesTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
+        $this->call(PermissionRoleTableSeeder::class);
+        $this->call(UserTableSeeder::class);
+
+        $this->call(SettingsTableSeeder::class);
     }
 }

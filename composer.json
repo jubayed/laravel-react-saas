@@ -2,10 +2,11 @@
   "name": "jubayed/laravel-react-saas",
   "description": "The Laravel Framework.",
   "keywords": [
-    "framework",
-    "laravel"
+    "jubayed",
+    "laravel",
+    "saas"
   ],
-  "license": "MIT",
+  "license": "unlicense",
   "type": "project",
   "support": {
     "issues": "https://github.com/jubayed/backend/issues",
@@ -18,10 +19,13 @@
     "ext-gd": "*",
     "barryvdh/laravel-debugbar": "^3.2",
     "beyondcode/laravel-dump-server": "^1.0",
+    "biscolab/laravel-recaptcha": "*",
+    "doctrine/dbal": "^3.0",
     "facade/ignition": "^2.3.6",
     "fideloper/proxy": "^4.2",
     "fzaninotto/faker": "^1.9.1",
     "inertiajs/inertia-laravel": "^0.2",
+    "jubayed/laravel-config-writer": "^2.0",
     "laravel/framework": "^8.0",
     "laravel/tinker": "^2.0",
     "laravel/ui": "^3.0",
@@ -30,18 +34,15 @@
     "nunomaduro/collision": "^5.0",
     "phpunit/phpunit": "^9.0",
     "reinink/remember-query-strings": "^0.1.0",
-    "sentry/sentry-laravel": "^1.5",
-    "stancl/tenancy": "^3.4",
-    "tightenco/ziggy": "^0.8.0",
     "rinvex/languages": "^5.0",
+    "sentry/sentry-laravel": "^1.5",
     "spatie/eloquent-sortable": "^3.10",
     "spatie/laravel-activitylog": "^3.16",
     "spatie/laravel-analytics": "^3.10",
     "spatie/laravel-backup": "^6.11",
-    "spatie/laravel-permission": "^3.17",
-    "doctrine/dbal": "^3.0",
-    "jubayed/laravel-config-writer": "^2.0",
-    "biscolab/laravel-recaptcha": "*"
+    "spatie/laravel-permission": "^3.18",
+    "stancl/tenancy": "^3.4",
+    "tightenco/ziggy": "^0.8.0"
   },
   "autoload": {
     "classmap": [

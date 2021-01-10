@@ -12,10 +12,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    use SoftDeletes, Authenticatable, Authorizable, HasFactory;
+    use SoftDeletes, Authenticatable, Authorizable, HasFactory, HasRoles;
 
     protected $casts = [
         'owner' => 'boolean',

@@ -19,7 +19,6 @@ class InstallCommand extends Command
      * @var string
      */
     protected $signature = 'backend:install
-                            {--with-dummy : Install with dummy data}
                             {--f|force : Force the operation to run when in production}';
 
     /**
@@ -28,8 +27,6 @@ class InstallCommand extends Command
      * @var string
      */
     protected $description = 'Install backend System';
-
-    private $moduels = [];
 
     /**
      * Create a new command instance.
@@ -48,49 +45,16 @@ class InstallCommand extends Command
      */
     public function handle(Filesystem $filesystem)
     {
-        $this->call('vendor:publish', [
-            '--provider' => 'Backend\BackendServiceProvider',
-            '--tag' => 'config',
-            '--force' => $this->option('force'),
-        ]);
         $this->init();
 
         $this->publish();
-
-        $this->info('Attempting to set Voyager User model as parent to App\User');
-        if (file_exists(app_path('Models/User.php'))) {
-
-            $userPath = app_path('Models/User.php');
-
-            $str = file_get_contents($userPath);
-
-            if ($str !== false) {
-                $str = str_replace('extends Authenticatable', "extends \Backend\Models\User", $str);
-
-                file_put_contents($userPath, $str);
-            }
-        } else {
-            $this->warn('Unable to locate "User.php" in app/Models.  Did you move this file?');
-            $this->warn('You will need to update this manually.  Change "extends Authenticatable" to "extends \TCG\Voyager\Models\User" in your User model');
-        }
 
         $this->migrate_and_seed();
 
         // optimize application
         $this->call('optimize:clear');
-
-        // setup installed flag in backend config
-        Config::write('backend.installed', true);
-
         // clear
         $this->call('config:clear');
-
-        if ($this->option('with-dummy')) {
-            $this->allpublish();
-        }
-
-        // routes
-
 
         $this->info('Dumping the autoloaded files and reloading all new files');
 
@@ -100,25 +64,6 @@ class InstallCommand extends Command
         $process->setTimeout(null); // Setting timeout to null to prevent installation from stopping at a certain point in time
         $process->setWorkingDirectory(base_path())->run();
 
-        $this->info('Adding Backend routes to routes/web.php');
-        $routes_contents = $filesystem->get(base_path('routes/web.php'));
-        if (false === strpos($routes_contents, 'Backend::routes()')) {
-            $filesystem->append(
-                base_path('routes/web.php'),
-                "\n\nRoute::group(['prefix' => 'backend'], function () {\n    \Backend\Support\Facades\Backend::routes();\n});\n"
-            );
-        }
-
-        // $this->info('Adding Backend routes to routes/api.php');
-        // $routes_contents = $filesystem->get(base_path('routes/api.php'));
-        // if (false === strpos($routes_contents, 'Backend::api()')) {
-        //     $filesystem->append(
-        //         base_path('routes/api.php'),
-        //         "\n\nRoute::group(['prefix' => 'backend'], function () {\n    \Backend\Support\Facades\Backend::api();\n});\n"
-        //     );
-        // }
-
-
         $this->info('Adding the storage symlink to your public folder');
         $this->call('storage:link');
 
@@ -126,50 +71,11 @@ class InstallCommand extends Command
     }
 
 
-    private function allpublish()
-    {
-        $this->call('vendor:publish', [
-            '--provider' => 'Backend\BackendServiceProvider',
-            '--tag' => 'views',
-            '--force' => $this->option('force'),
-        ]);
-
-        $this->call('vendor:publish', [
-            '--provider' => 'Backend\BackendServiceProvider',
-            '--tag' => 'lang',
-            '--force' => $this->option('force'),
-        ]);
-
-        $this->call('vendor:publish', [
-            '--provider' => 'Backend\BackendServiceProvider',
-            '--tag' => 'migrations',
-            '--force' => $this->option('force'),
-        ]);
-
-        $this->call('vendor:publish', [
-            '--provider' => 'Backend\BackendServiceProvider',
-            '--tag' => 'seeders',
-            '--force' => $this->option('force'),
-        ]);
-    }
-
     /**
      * init
      */
     public function init()
     {
-
-        if (Config::get('backend.installed') == true && $this->option('force') == true) {
-            $this->info("Application already reinstalling");
-        }
-        elseif (Config::get('backend.installed') == true && $this->option('force') == false) {
-            $this->error("Application already installed");
-            exit();
-            die();
-            return 0;
-        }else{
-            $this->info("Application already installing");
-        }
 
         // setup .env [APP_KEY]
         if (!file_exists(base_path('.env'))) {
@@ -186,10 +92,6 @@ class InstallCommand extends Command
 
         // create configs
         $this->call('config:clear');
-
-        if (Config::get('backend.installed') == false && !$this->option('force')) {
-            $this->error("Application allready installed");
-        }
     }
 
     /**
@@ -234,20 +136,7 @@ class InstallCommand extends Command
         //spatie/laravel-activitylog
 
     }
-    /**
-     * migrate and seeding
-     */
-    public function migrate_and_seed()
-    {
-        // migrate and seeder
-        if (!$this->call('migrate')) {
-            $this->call('migrate:fresh');
-        }
 
-        $this->call('db:seed', [
-            '--class' => '\Backend\Seeders\BackendDatabaseSeeder'
-        ]);
-    }
     /**
      * Get the composer command for the environment.
      *
