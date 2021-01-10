@@ -1,5 +1,5 @@
 {
-  "name": "laravel/laravel",
+  "name": "jubayed/laravel-react-saas",
   "description": "The Laravel Framework.",
   "keywords": [
     "framework",
@@ -7,6 +7,11 @@
   ],
   "license": "MIT",
   "type": "project",
+  "support": {
+    "issues": "https://github.com/jubayed/backend/issues",
+    "source": "https://github.com/jubayed/backend",
+    "email": "support@jubayed.net"
+  },
   "require": {
     "php": "^7.2.5",
     "ext-exif": "*",
@@ -26,7 +31,17 @@
     "phpunit/phpunit": "^9.0",
     "reinink/remember-query-strings": "^0.1.0",
     "sentry/sentry-laravel": "^1.5",
-    "tightenco/ziggy": "^0.8.0"
+    "stancl/tenancy": "^3.4",
+    "tightenco/ziggy": "^0.8.0",
+    "rinvex/languages": "^5.0",
+    "spatie/eloquent-sortable": "^3.10",
+    "spatie/laravel-activitylog": "^3.16",
+    "spatie/laravel-analytics": "^3.10",
+    "spatie/laravel-backup": "^6.11",
+    "spatie/laravel-permission": "^3.17",
+    "doctrine/dbal": "^3.0",
+    "jubayed/laravel-config-writer": "^2.0",
+    "biscolab/laravel-recaptcha": "*"
   },
   "autoload": {
     "classmap": [
@@ -37,7 +52,10 @@
       "App\\": "app/",
       "Database\\Factories\\": "database/factories/",
       "Database\\Seeders\\": "database/seeders/"
-    }
+    },
+    "files": [
+      "app/Http/Helpers/Common.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
