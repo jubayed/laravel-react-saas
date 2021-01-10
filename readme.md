@@ -1,4 +1,4 @@
-# Ping CRM React
+# Multi-tenant SaaS boilerplate
 
 A demo application to illustrate how [Inertia.js](https://inertiajs.com/) works with [Laravel](https://laravel.com/) and [React](https://reactjs.org/).
 
@@ -11,7 +11,7 @@ Clone the repo locally:
 
 ```sh
 git clone https://github.com/jubayed/laravel-react-saas.git
-cd pingcrm-react
+cd laravel-react-saas
 ```
 
 Install PHP dependencies:
@@ -68,7 +68,7 @@ Run artisan server:
 php artisan serve
 ```
 
-You're ready to go! [Visit Ping CRM](http://127.0.0.1:8000/) in your browser, and login with:
+You're ready to go! [Visit laravel-react-saas](http://127.0.0.1:8000/) in your browser, and login with:
 
 - **Username:** johndoe@example.com
 - **Password:** secret
